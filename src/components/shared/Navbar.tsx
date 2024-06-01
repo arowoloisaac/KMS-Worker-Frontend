@@ -30,10 +30,10 @@ const Navbar = () => {
                     Home
                   </a>
                 </li>
-                
-                  <>
-                    <li className="nav-item">
-                      {/* {isWith == false ? (
+
+                <>
+                  <li className="nav-item">
+                    {/* {isWith == false ? (
                         <a className="nav-link" href="/request">
                           InBoard
                         </a>
@@ -42,28 +42,28 @@ const Navbar = () => {
                           In Possession
                         </a>
                       )} */}
-                    </li>
+                  </li>
 
-                    <li className="nav-item">
-                      <a className="nav-link" href="/thirdparty">
-                        ThirdParty
-                      </a>
-                    </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/thirdparty">
+                      ThirdParty
+                    </a>
+                  </li>
 
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Notification
-                        {/* {notification ? (
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      Notification
+                      {/* {notification ? (
                           <span id="notifier">0</span>
                         ) : (
                           <span></span>
                         )} */}
-                      </a>
-                    </li>
-                  </>
-                
-                  <div></div>
-                
+                    </a>
+                  </li>
+                </>
+
+                <div></div>
+
                 <span></span>
               </ul>
               <div></div>
@@ -95,6 +95,18 @@ const Navbar = () => {
                   </a>
                 </div>
               )} */}
+              <div>
+                <a href="/login" style={{ marginRight: "10px" }}>
+                  <button type="button" className="btn btn-secondary">
+                    Login
+                  </button>
+                </a>
+                <a href="/register">
+                  <button type="button" className="btn btn-secondary">
+                    Register
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
         </nav>
