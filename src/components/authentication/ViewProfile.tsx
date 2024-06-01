@@ -1,8 +1,12 @@
+export interface profile {
+
+}
+
 const ViewProfile = () => {
   return (
     <>
       <div>
-        <h1>View profile pahe</h1>
+        <h1>View profile page</h1>
       </div>
     </>
   );

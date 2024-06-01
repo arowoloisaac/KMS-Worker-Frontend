@@ -1,21 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "axios";
+import { ApiResponse } from "./Register";
+import { Token } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [status, setStatus] = useState<number>(0);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const data = {
     email: email,
     password: password,
   };
 
-  const handleLogin = async (event: any) => {
+  const savedToken = localStorage.getItem(Token);
+
+  useEffect(() => {
+    savedToken !== null ? setIsAuthenticated(true) : setIsAuthenticated(false);
+  }, [savedToken]);
+
+
+  const handleLogin = (event: any) => {
     event.preventDefault();
-    await Axios.post("https://localhost:7267/api/login", data).then((res) => {
-        res.data
-        console.log(res.data)
-    });
+    if (!isAuthenticated) {
+      Axios.post<ApiResponse>("https://localhost:7267/api/login", data)
+        .then((res) => {
+          setStatus(res.status);
+          if (res.status === 200) {
+            localStorage.setItem(Token, res.data.token);
+            navigate("/");
+            window.location.reload();
+          } else {
+            alert("Invalid credentials");
+          }
+        })
+        .catch((ex) => ex.response.status);
+    } else {
+      if (status === 401 || status === 403) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
   };
   return (
     <>

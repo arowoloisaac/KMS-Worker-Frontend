@@ -4,13 +4,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import Dashboard from "./components/home/Dashboard";
 import Navbar from "./components/shared/Navbar";
-import ReturnCollection from "./components/functions/ReturnCollection";
-import Collection from "./components/functions/Collection";
+import CollectKeys from "./components/functions/CollectKeys";
+import AssignKey from "./components/functions/AssignKey";
 import Register from "./components/authentication/Register";
 import Login from "./components/authentication/Login";
 import ViewProfile from "./components/authentication/ViewProfile";
 import UpdateProfile from "./components/authentication/UpdateProfile";
 import ErrorPage from "./components/error/ErrorPage";
+
+export const Token = "token";  
 
 function App() {
   return (
@@ -19,8 +21,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="returns" element={<ReturnCollection />} />
-          <Route path="/collectors" element={<Collection />} />
+          <Route path="returns" element={<CollectKeys />} />
+          <Route path="request" element={<AssignKey />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<ViewProfile />} />

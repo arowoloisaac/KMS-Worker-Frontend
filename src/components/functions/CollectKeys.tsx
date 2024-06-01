@@ -1,4 +1,4 @@
-const ReturnCollection = () => {
+const CollectKeys = () => {
   return (
     <>
       <div>
@@ -10,4 +10,4 @@ const ReturnCollection = () => {
 
 
 
-export default ReturnCollection
+export default CollectKeys

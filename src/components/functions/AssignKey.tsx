@@ -1,4 +1,4 @@
-const Collection = () => {
+const AssignKey = () => {
   return (
     <>
       <div>
@@ -9,4 +9,4 @@ const Collection = () => {
 };
 
 
-export default Collection
+export default AssignKey;

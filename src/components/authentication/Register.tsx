@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "../home/Dashboard";
+import { Token } from "../../App";
 
 export interface ApiResponse {
   token: string;
@@ -43,7 +44,7 @@ const Register = () => {
       data
     )
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem(Token, res.data.token);
         setStatus(res.status);
         navigate("/");
         window.location.reload();

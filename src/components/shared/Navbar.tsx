@@ -1,9 +1,61 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import "../../assets/css/navbar/Navbar.css";
+import Axios from "axios";
+import { Token } from "../../App";
 
 const Navbar = () => {
-  useEffect(()=> {
-    
-  })
+  const [email, setEmail] = useState<string>("");
+  const [notification, setNotification] = useState<number>(0);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  const savedData = localStorage.getItem(Token);
+
+  //check for user token
+  useEffect(() => {
+    if (savedData) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [savedData]);
+
+  // to get email to be place on the profile
+  useEffect(() => {
+    Axios.get("https://localhost:7267/api/profile", {
+      headers: { Authorization: `Bearer ${savedData}` },
+    })
+      .then((res) => {
+        setEmail(res.data.email);
+      })
+      .catch((ex) => ex.response.status);
+  }, [savedData]);
+
+  const handleLogout = (event: any) => {
+    event.preventDefault();
+    if (isAuthenticated == true) {
+       Axios.post(
+        "https://localhost:7267/api/logout",
+        {},
+        {
+          headers: { Authorization: `Bearer ${savedData}` },
+        }
+      )
+        .then((res) => {
+          res.status;
+          localStorage.removeItem("token");
+          setIsAuthenticated(false);
+          window.location.reload();
+        })
+        .catch(() => {
+          localStorage.clear();
+          window.location.reload();
+        });
+    } else {
+      localStorage.clear();
+      window.location.reload();
+    }
+  };
+
   return (
     <>
       <div>
@@ -33,31 +85,19 @@ const Navbar = () => {
 
                 <>
                   <li className="nav-item">
-                    {/* {isWith == false ? (
-                        <a className="nav-link" href="/request">
-                          InBoard
-                        </a>
+                    <a className="nav-link" href="/request">
+                      Requests{" "}
+                      {notification > 0 ? (
+                        <span id="notifier">0</span>
                       ) : (
-                        <a className="nav-link" href="/with">
-                          In Possession
-                        </a>
-                      )} */}
-                  </li>
-
-                  <li className="nav-item">
-                    <a className="nav-link" href="/thirdparty">
-                      ThirdParty
+                        <span></span>
+                      )}
                     </a>
                   </li>
 
                   <li className="nav-item">
                     <a className="nav-link" href="#">
-                      Notification
-                      {/* {notification ? (
-                          <span id="notifier">0</span>
-                        ) : (
-                          <span></span>
-                        )} */}
+                      Return
                     </a>
                   </li>
                 </>
@@ -67,16 +107,13 @@ const Navbar = () => {
                 <span></span>
               </ul>
               <div></div>
-              {/* {isAuthenticated === true ? (
+              {isAuthenticated === true ? (
                 <div>
                   <a href="/profile">
-                    <span style={{ marginRight: "20px" }}></span>
+                    <span style={{ marginRight: "20px" }}>{email}</span>
                   </a>
                   <a href="">
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                    >
+                    <button type="button" className="btn btn-danger" onClick={handleLogout}>
                       Logout
                     </button>
                   </a>
@@ -94,19 +131,7 @@ const Navbar = () => {
                     </button>
                   </a>
                 </div>
-              )} */}
-              <div>
-                <a href="/login" style={{ marginRight: "10px" }}>
-                  <button type="button" className="btn btn-secondary">
-                    Login
-                  </button>
-                </a>
-                <a href="/register">
-                  <button type="button" className="btn btn-secondary">
-                    Register
-                  </button>
-                </a>
-              </div>
+              )}
             </div>
           </div>
         </nav>
@@ -115,4 +140,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar
+export default Navbar;
