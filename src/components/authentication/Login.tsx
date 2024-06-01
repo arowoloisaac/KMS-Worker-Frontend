@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { ApiResponse } from "./Register";
-import { Token } from "../../App";
+import { Token, setToken } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -17,11 +17,9 @@ const Login = () => {
     password: password,
   };
 
-  const savedToken = localStorage.getItem(Token);
-
   useEffect(() => {
-    savedToken !== null ? setIsAuthenticated(true) : setIsAuthenticated(false);
-  }, [savedToken]);
+    Token !== null ? setIsAuthenticated(true) : setIsAuthenticated(false);
+  }, [Token]);
 
 
   const handleLogin = (event: any) => {
@@ -31,7 +29,7 @@ const Login = () => {
         .then((res) => {
           setStatus(res.status);
           if (res.status === 200) {
-            localStorage.setItem(Token, res.data.token);
+            localStorage.setItem(setToken, res.data.token);
             navigate("/");
             window.location.reload();
           } else {

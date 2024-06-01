@@ -8,27 +8,27 @@ const Navbar = () => {
   const [notification, setNotification] = useState<number>(0);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  const savedData = localStorage.getItem(Token);
+  // const savedData = localStorage.getItem(Token);
 
   //check for user token
   useEffect(() => {
-    if (savedData) {
+    if (Token) {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
-  }, [savedData]);
+  }, [Token]);
 
   // to get email to be place on the profile
   useEffect(() => {
     Axios.get("https://localhost:7267/api/profile", {
-      headers: { Authorization: `Bearer ${savedData}` },
+      headers: { Authorization: `Bearer ${Token}` },
     })
       .then((res) => {
         setEmail(res.data.email);
       })
       .catch((ex) => ex.response.status);
-  }, [savedData]);
+  }, [Token]);
 
   const handleLogout = (event: any) => {
     event.preventDefault();
@@ -37,7 +37,7 @@ const Navbar = () => {
         "https://localhost:7267/api/logout",
         {},
         {
-          headers: { Authorization: `Bearer ${savedData}` },
+          headers: { Authorization: `Bearer ${Token}` },
         }
       )
         .then((res) => {

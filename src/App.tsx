@@ -12,7 +12,8 @@ import ViewProfile from "./components/authentication/ViewProfile";
 import UpdateProfile from "./components/authentication/UpdateProfile";
 import ErrorPage from "./components/error/ErrorPage";
 
-export const Token = "token";  
+export const setToken = "token";  
+export const Token = localStorage.getItem(setToken)
 
 function App() {
   return (
