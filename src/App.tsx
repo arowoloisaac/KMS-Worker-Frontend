@@ -14,6 +14,7 @@ import ErrorPage from "./components/error/ErrorPage";
 
 export const setToken = "token";  
 export const Token = localStorage.getItem(setToken)
+export const ApiURL = "https://localhost:7267/api";
 
 function App() {
   return (

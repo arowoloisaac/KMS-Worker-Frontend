@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import "../../assets/css/navbar/Navbar.css";
+import "../../assets/css/sharedCss/Navbar.css";
 import Axios from "axios";
 import { Token } from "../../App";
 
 const Navbar = () => {
   const [email, setEmail] = useState<string>("");
+  // get length for the key requests
   const [notification, setNotification] = useState<number>(0);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  // to get the length for the key returns
+  const [length, getLength] = useState<number>(0);
 
   // const savedData = localStorage.getItem(Token);
 
@@ -33,7 +36,7 @@ const Navbar = () => {
   const handleLogout = (event: any) => {
     event.preventDefault();
     if (isAuthenticated == true) {
-       Axios.post(
+      Axios.post(
         "https://localhost:7267/api/logout",
         {},
         {
@@ -56,6 +59,15 @@ const Navbar = () => {
     }
   };
 
+  const getRequests = () => {
+    Axios.get("https://localhost:7267/api/requests").then((response) => {
+      setNotification(response.data.length);
+    });
+  };
+
+  useEffect(() => {
+    getRequests();
+  }, []);
   return (
     <>
       <div>
@@ -83,24 +95,28 @@ const Navbar = () => {
                   </a>
                 </li>
 
-                <>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/request">
-                      Requests{" "}
-                      {notification > 0 ? (
-                        <span id="notifier">0</span>
-                      ) : (
-                        <span></span>
-                      )}
-                    </a>
-                  </li>
+                {isAuthenticated ? (
+                  <>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/request">
+                        Requests{" "}
+                        {notification > 0 ? (
+                          <span id="notifier">0</span>
+                        ) : (
+                          <span></span>
+                        )}
+                      </a>
+                    </li>
 
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Return
-                    </a>
-                  </li>
-                </>
+                    <li className="nav-item">
+                      <a className="nav-link" href="returns">
+                        Returns
+                      </a>
+                    </li>
+                  </>
+                ) : (
+                  <span></span>
+                )}
 
                 <div></div>
 
@@ -113,7 +129,11 @@ const Navbar = () => {
                     <span style={{ marginRight: "20px" }}>{email}</span>
                   </a>
                   <a href="">
-                    <button type="button" className="btn btn-danger" onClick={handleLogout}>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={handleLogout}
+                    >
                       Logout
                     </button>
                   </a>

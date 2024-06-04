@@ -1,0 +1,123 @@
+#externalContainer {
+  padding: 20px 10px 0px 100px;
+}
+
+#accept-btn {
+  padding-left: 260px;
+}
+
+#text-header {
+  padding-top: 15px;
+}
+@media (max-width: 1300px) and (max-height: 800px) {
+  #accept-btn {
+    padding-left: 70px;
+  }
+
+  #text-header {
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 940px) and (max-height: 1400px) {
+  #accept-btn {
+    padding-left: 50px;
+  }
+
+  #text-header {
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 800px) and (max-height: 1200px) {
+  #accept-btn {
+    padding-left: 110px;
+  }
+
+  #text-header {
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 480px) and (max-height: 1000px) {
+  #externalContainer {
+    padding: 20px 10px 0 10px;
+  }
+
+  #accept-btn {
+    padding-left: 30px;
+  }
+
+  #text-header {
+    padding-top: 10px;
+  }
+}
+@media (max-width: 420px) and (max-height: 900px) {
+  #externalContainer {
+    padding: 20px 0px 0 0px;
+  }
+
+  #accept-btn {
+    padding-left: 25px;
+  }
+
+  #text-header {
+    padding-top: 10px;
+  }
+}
+@media (max-width: 360px) and (max-height: 750px) {
+  #externalContainer {
+    padding: 20px 0px 0 0px;
+  }
+
+  #accept-btn {
+    padding-left: 20px;
+  }
+
+  #text-header {
+    padding-top: 5px;
+  }
+}
+
+/* throttling */
+@media (max-width: 1000px) and (max-height: 480px) {
+  #accept-btn {
+    padding-left: 70px;
+  }
+
+  #text-header {
+    padding-top: 10px;
+  }
+}
+@media (max-width: 900px) and (max-height: 400px) {
+  #accept-btn {
+    padding-left: 70px;
+  }
+  #text-header {
+    padding-top: 10px;
+  }
+}
+@media (max-width: 800px) and (max-height: 400px) {
+  #accept-btn {
+    padding-left: 20px;
+  }
+
+  #text-header {
+    padding-top: 10px;
+  }
+}
+
+/* @media (max-width: 480px) and (max-height: 1000px) {
+}
+@media (max-width: 420px) and (max-height: 900px) {
+}
+@media (max-width: 360px) and (max-height: 750px) {
+}
+@media (max-width: 1000px) and (max-height: 480px) {
+}
+@media (max-width: 1000px) and (max-height: 480px) {
+}
+@media (max-width: 900px) and (max-height: 400px) {
+}
+@media (max-width: 800px) and (max-height: 400px) {
+} */
