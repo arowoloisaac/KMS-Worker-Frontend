@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../assets/css/sharedCss/Navbar.css";
 import Axios from "axios";
-import { Token } from "../../App";
+import { ApiURL, Token } from "../../App";
 
 const Navbar = () => {
   const [email, setEmail] = useState<string>("");
@@ -65,8 +65,15 @@ const Navbar = () => {
     });
   };
 
+  const getCollection = () => {
+    Axios.get(`${ApiURL}/returns`).then((response) => {
+      getLength(response.data.length);
+    });
+  };
+
   useEffect(() => {
     getRequests();
+getCollection();
   }, []);
   return (
     <>
@@ -110,7 +117,7 @@ const Navbar = () => {
 
                     <li className="nav-item">
                       <a className="nav-link" href="returns">
-                        Returns
+                        Returns {length > 0 ? (<span id="notifier"></span>): (<span></span>)}
                       </a>
                     </li>
                   </>

@@ -57,7 +57,9 @@ const CollectKeys = () => {
 
   useEffect(() => {
     getRequests();
+    isAccepted
   }, []);
+
   return (
     <>
       {length < 1 ? (

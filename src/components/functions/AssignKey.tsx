@@ -62,6 +62,7 @@ const AssignKey = () => {
 
   useEffect(() => {
     getRequests();
+    isAccepted
   }, []);
 
   return (
