@@ -91,6 +91,40 @@ const ViewProfile = () => {
                     </div>
                   </div>
                 </div>
+                <div className="me-2">
+                  <a
+                    className="btn btn-primary me-2"
+                    role="button"
+                    aria-disabled="true"
+                    href="roles"
+                  >
+                    Manage role
+                  </a>
+                  <a
+                    className="btn btn-secondary me-2"
+                    role="button"
+                    aria-disabled="true"
+                    href="add-key"
+                  >
+                    Add Key
+                  </a>
+                  <a
+                    className="btn btn-danger me-2"
+                    role="button"
+                    aria-disabled="true"
+                    href="remove-key"
+                  >
+                    Remove Key
+                  </a>
+                  <a
+                    className="btn btn-warning"
+                    role="button"
+                    aria-disabled="true"
+                    href="update-key"
+                  >
+                    Update Key
+                  </a>
+                </div>
               </div>
             </div>
           </div>

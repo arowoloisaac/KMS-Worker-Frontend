@@ -1,41 +1,67 @@
+import { useEffect, useState } from "react";
+import Axios from "axios";
+import { ApiURL } from "../../App";
 
-
-const Dashboard = () => {
-    return (
-      <>
-        <div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colSpan={2}>Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </>
-    );
+export interface IKeys {
+  id: string;
+  room: string;
+  status: string;
 }
 
-export default Dashboard
+const Dashboard = () => {
+  const [getKeys, setKeys] = useState<IKeys[]>([]);
+  useEffect(() => {
+    Axios.get(`${ApiURL}/get-keys`).then((response) => {
+      setKeys(response.data);
+      console.log(response.data);
+    });
+  }, []);
+  return (
+    <>
+      <div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Room</th>
+              <th scope="col">Inboard</th>
+              <th scope="col">In use</th>
+              <th scope="col">Pending</th>
+            </tr>
+          </thead>
+          <tbody>
+            {getKeys.map((key, index) => (
+              <tr>
+                <th scope="row" key={key.id}>
+                  {index + 1}
+                </th>
+                <td>{key.room}</td>
+                {key.status === "Available" ? (
+                  <>
+                    <td>✔️</td>
+                    <td colSpan={2}></td>
+                    {/* <td></td> */}
+                  </>
+                ) : key.status === "Unavailable" ? (
+                  <>
+                    <td></td>
+                    <td>🔛</td>
+                    <td></td>
+                  </>
+                ) : (
+                  <>
+                    <td colSpan={2}></td>
+                    {/* <td></td> */}
+                    <td>🔜</td>
+                  </>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+};
+
+export default Dashboard;
