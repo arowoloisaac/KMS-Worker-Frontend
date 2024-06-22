@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
-import { Token } from "../../App";
+import { ApiURL, Token } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { User } from "./ViewProfile";
 
@@ -15,7 +15,7 @@ const UpdateProfile = () => {
 
   //for getting profile
   useEffect(() => {
-    Axios.get("https://localhost:7267/api/profile", {
+    Axios.get(`${ApiURL}/profile`, {
       headers: {
         Authorization: `bearer ${Token}`,
       },
@@ -33,21 +33,21 @@ const UpdateProfile = () => {
   };
 
   const updateProfileButton = () => {
-    Axios.put("https://localhost:7267/api/profile", data, {
+    Axios.put(`${ApiURL}/profile`, data, {
       headers: {
         Authorization: `Bearer ${Token}`,
       },
     })
       .then((res) => {
         if (res.status === 200) {
+          alert(res.data);
           navigate("/profile");
           location.reload();
         }
       })
       .catch((ex) => {
-        if (ex.response.status) {
-          alert(ex.message);
-        }
+          alert(ex.response.data);
+        
       });
   };
 

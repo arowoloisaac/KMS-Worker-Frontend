@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import "../../assets/css/functionsCss/functions.css";
-import { ApiURL, Token } from "../../App";
+import { ApiURL, Token, errorMessage } from "../../App";
 
 export interface IRequest {
   keyId: string;
@@ -16,13 +16,16 @@ const AssignKey = () => {
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
 
   const getRequests = () => {
-    Axios.get(`${ApiURL}/requests`).then((response) => {
+    Axios.get(`${ApiURL}/requests`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }).then((response) => {
       setRequests(response.data);
       getLength(response.data.length);
     });
   };
 
-  
   //to assign key to key collector
   const handleAccept = (key: IRequest) => {
     const keyId = key.keyId;
@@ -36,10 +39,12 @@ const AssignKey = () => {
         },
       }
     )
-      .then((res) =>
-        res.status === 200 ? setIsAccepted(true) : setIsAccepted(false)
-      )
-      .catch((ex) => ex.message);
+      .then((res) => {
+        res.status === 200 ? setIsAccepted(true) : setIsAccepted(false);
+        alert(res.data);
+        location.reload();
+      })
+      .catch((ex) => alert(ex.response.data));
   };
 
   const handleReject = (key: IRequest) => {
@@ -54,15 +59,19 @@ const AssignKey = () => {
         },
       }
     )
-      .then((res) =>
-        res.status === 200 ? setIsAccepted(true) : setIsAccepted(false)
-      )
-      .catch((ex) => ex.message);
+      .then((res) => {
+        res.status === 200 ? setIsAccepted(true) : setIsAccepted(false);
+        alert(res.data);
+        location.reload();
+      })
+      .catch((ex) => {
+        alert(errorMessage(ex));
+      });
   };
 
   useEffect(() => {
     getRequests();
-    isAccepted
+    isAccepted;
   }, []);
 
   return (

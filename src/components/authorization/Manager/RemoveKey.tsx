@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IKeys } from "../../home/Dashboard";
 import Axios from "axios";
-import { ApiURL, Token } from "../../../App";
+import { ApiURL, Token, errorMessage } from "../../../App";
 
 const RemoveKey = () => {
   const [keys, getKeys] = useState<IKeys[]>([]);
@@ -10,16 +10,18 @@ const RemoveKey = () => {
     let endpoint = `${ApiURL}/get-keys`;
     Axios.get(endpoint)
       .then((res) => getKeys(res.data))
-      .catch((ex) => ex.message);
+      .catch((ex) => alert(errorMessage(ex)));
   };
 
   const handleRemove = (key: any) => {
     let endpoint = `${ApiURL}/remove-key?keyId=${key.id}`;
 
     Axios.delete(endpoint, { headers: { Authorization: `Bearer ${Token}` } })
-      .then((res) => {alert(res.data) 
-        location.reload()})
-      .catch((ex) => alert(ex.message));
+      .then((res) => {
+        alert(res.data);
+        location.reload();
+      })
+      .catch((ex) => alert(errorMessage(ex)));
   };
 
   useEffect(() => {

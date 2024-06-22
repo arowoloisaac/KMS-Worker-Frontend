@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../assets/css/authorizationCss/RoleManger.css";
 import Axios from "axios";
-import { Token } from "../../App";
+import { Token, errorMessage } from "../../App";
 
 export interface IUsers {
   email: string;
@@ -25,7 +25,9 @@ const RoleManager = () => {
       headers: {
         Authorization: `Bearer ${Token}`,
       },
-    }).then((res) => setUsers(res.data));
+    })
+      .then((res) => setUsers(res.data))
+      .catch((ex) => alert(errorMessage(ex)));
   };
 
   const handleCreate = (prop: any) => {
@@ -37,7 +39,7 @@ const RoleManager = () => {
       .then((res) => {
         alert(res.data.text);
       })
-      .catch((ex) => console.log(ex.message));
+      .catch((ex) => alert(errorMessage(ex)));
   };
 
   const handleRemove = (prop: any) => {
@@ -49,9 +51,9 @@ const RoleManager = () => {
       headers: { Authorization: `Bearer ${Token}` },
     })
       .then((res) => {
-        alert(res.data.text);
+        alert(res.data);
       })
-      .catch((ex) => console.log(ex.message));
+      .catch((ex) => alert(errorMessage(ex)));
   };
 
   // for handling the select of a specific person

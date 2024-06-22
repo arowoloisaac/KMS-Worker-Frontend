@@ -1,7 +1,7 @@
-import "../../assets/css/functionsCss/functions.css"
+import "../../assets/css/functionsCss/functions.css";
 import { IRequest } from "./AssignKey";
 import { useState, useEffect } from "react";
-import Axios from "axios"
+import Axios from "axios";
 import { ApiURL, Token } from "../../App";
 
 const CollectKeys = () => {
@@ -31,9 +31,11 @@ const CollectKeys = () => {
         },
       }
     )
-      .then((res) =>
-        res.status === 200 ? setIsAccepted(true) : setIsAccepted(false)
-      )
+      .then((res) => {
+        res.status === 200 ? setIsAccepted(true) : setIsAccepted(false);
+        alert(res.data.text);
+        location.reload();
+      })
       .catch((ex) => ex.message);
   };
 
@@ -49,26 +51,32 @@ const CollectKeys = () => {
         },
       }
     )
-      .then((res) =>
-        res.status === 200 ? setIsAccepted(true) : setIsAccepted(false)
-      )
-      .catch((ex) => ex.message);
+      .then((res) => {
+        res.status === 200 ? setIsAccepted(true) : setIsAccepted(false);
+        alert(res.data);
+        location.reload();
+      })
+      .catch((ex) => alert(ex.response.data));
   };
 
   useEffect(() => {
     getRequests();
-    isAccepted
+    isAccepted;
   }, []);
 
   return (
     <>
       {length < 1 ? (
-        <div className="container text-center" style={{paddingTop:"200px"}}>
+        <div className="container text-center" style={{ paddingTop: "200px" }}>
           <div>
-            <h2 style={{color:"blueviolet", fontFamily:"revert"}}>No Request from collectors</h2>
+            <h2 style={{ color: "blueviolet", fontFamily: "revert" }}>
+              No Request from collectors
+            </h2>
           </div>
           <div>
-            <p style={{color:"blue"}}>We will notify when there is a request👻👻!!!</p>
+            <p style={{ color: "blue" }}>
+              We will notify when there is a request👻👻!!!
+            </p>
           </div>
         </div>
       ) : (
@@ -109,6 +117,4 @@ const CollectKeys = () => {
   );
 };
 
-
-
-export default CollectKeys
+export default CollectKeys;

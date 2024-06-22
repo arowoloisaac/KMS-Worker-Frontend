@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ApiURL, Token } from "../../../App";
+import { ApiURL, Token, errorMessage } from "../../../App";
 import { IKeys } from "../../home/Dashboard";
 import Axios from "axios";
 import "../../../assets/css/authorizationCss/UpdateKey.css"
@@ -14,7 +14,7 @@ const UpdateKey = () => {
     let endpoint = `${ApiURL}/get-keys`;
     Axios.get(endpoint)
       .then((res) => setKeys(res.data))
-      .catch((ex) => console.log(ex.message));
+      .catch((ex) => alert(errorMessage(ex)));
   };
   
   // handle update
@@ -26,13 +26,11 @@ const UpdateKey = () => {
       { headers: { Authorization: `Bearer ${Token}` } }
     )
       .then((res) => {
-        console.log(res.data);
         alert(res.data)
         location.reload()
       })
-      .catch((ex) => console.log(ex.message));
+      .catch((ex) =>alert(errorMessage(ex)));
   };
-
 
   //hndle the buttons and changes
   const handleInputChange = (room: string, role: string) => {

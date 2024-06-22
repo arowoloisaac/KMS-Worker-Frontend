@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
-import { ApiURL, Token } from "../../../App";
+import { ApiURL, Token, errorMessage } from "../../../App";
 import lock from "../../../assets/images/lock.jpg";
 
 const AddKey = () => {
@@ -10,7 +10,6 @@ const AddKey = () => {
     room: room,
   };
 
-  console.log(data);
   const handleAdd = () => {
     Axios.post(`${ApiURL}/add-key`, data, {
       headers: { Authorization: `Bearer ${Token}` },
@@ -21,7 +20,9 @@ const AddKey = () => {
           location.reload();
         }
       })
-      .catch((ex) => alert(ex.message));
+      .catch((ex) => {
+        alert(errorMessage(ex));
+      });
   };
   return (
     <>

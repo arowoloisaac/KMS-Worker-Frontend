@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { ApiResponse } from "./Register";
-import { Token, setToken } from "../../App";
+import { ApiURL, Token, setToken } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -25,7 +25,7 @@ const Login = () => {
   const handleLogin = (event: any) => {
     event.preventDefault();
     if (!isAuthenticated) {
-      Axios.post<ApiResponse>("https://localhost:7267/api/login", data)
+      Axios.post<ApiResponse>(`${ApiURL}/login`, data)
         .then((res) => {
           setStatus(res.status);
           if (res.status === 200) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "../home/Dashboard";
-import { setToken } from "../../App";
+import { ApiURL, setToken } from "../../App";
 
 export interface ApiResponse {
   token: string;
@@ -40,7 +40,7 @@ const Register = () => {
   console.log(data)
   const register = () => {
      Axios.post<ApiResponse>(
-      "https://localhost:7267/api/register-worker",
+      `${ApiURL}/register-worker`,
       data
     )
       .then((res) => {
